@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,9 +28,9 @@ public class MainActivity extends AppCompatActivity {
         telefone = findViewById(R.id.phoneID);
         listagem = findViewById(R.id.listID);
         dados = new ArrayList();
-        ArrayAdapter adapter =
-                new ArrayAdapter
+        ArrayAdapter adapter = new ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, dados);
 
+        listagem.setAdapter(adapter);
     }
 
     public void salvar(View view){
@@ -37,7 +39,5 @@ public class MainActivity extends AppCompatActivity {
         contato.setTelefone(telefone.getText().toString());
         dados.add(contato);
         Toast.makeText(this, "Salvo com sucesso", Toast.LENGTH_SHORT).show();
-
-
     }
 }
