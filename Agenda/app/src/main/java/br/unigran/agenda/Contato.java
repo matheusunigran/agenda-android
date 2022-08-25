@@ -25,9 +25,6 @@ public class Contato {
 
     @Override
     public String toString() {
-        return "Contato{" +
-                "nome='" + nome + '\'' +
-                ", telefone='" + telefone + '\'' +
-                '}';
+        return (String.format("Nome: %s     |Telefone: %s");
     }
 }
