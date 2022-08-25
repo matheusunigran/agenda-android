@@ -25,6 +25,6 @@ public class Contato {
 
     @Override
     public String toString() {
-        return (String.format("Nome: %s     |Telefone: %s");
+        return (String.format("Nome: %s     |Telefone: %s"));
     }
 }
