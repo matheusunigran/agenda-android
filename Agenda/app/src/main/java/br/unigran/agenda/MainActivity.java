@@ -47,12 +47,15 @@ public class MainActivity extends AppCompatActivity {
                 AlertDialog.Builder alert =
                         new AlertDialog.Builder(getApplicationContext());
                 alert.setMessage("Confirmar");
-                alert.setPositiveButton("remover", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                alert.setPositiveButton("remover",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
 
-                    }
-                })
+                            }
+                        });
+                alert.setMessage("a");
+                return false;
             }
         }
 
