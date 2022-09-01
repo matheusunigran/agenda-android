@@ -1,7 +1,9 @@
 package br.unigran.agenda;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -38,6 +40,23 @@ public class MainActivity extends AppCompatActivity {
         listagem.setAdapter(adapter);
         contatoDB = new ContatoDB(db);
         contatoDB.lista(dados);
+
+        listagem.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                AlertDialog.Builder alert =
+                        new AlertDialog.Builder(getApplicationContext());
+                alert.setMessage("Confirmar");
+                alert.setPositiveButton("remover", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+            }
+        }
+
+
     }
 
     public void salvar(View view){
