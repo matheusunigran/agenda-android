@@ -25,12 +25,5 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
     }
-    public void inserir(Contato contato, DBHelper db){
-        SQLiteDatabase conexao = db.getWritableDatabase();
-        ContentValues valores = new ContentValues();
-        valores.put("nome", contato.getNome());
-        valores.put("telefone", contato.getTelefone());
-        conexao.insertOrThrow("Agenda", null, valores);
-        conexao.close();
-    }
+
 }
