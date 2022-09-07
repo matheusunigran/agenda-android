@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
     List<Contato> dados;
     DBHelper db;
     ContatoDB contatoDB;
-
     Integer atualiza;
 
     @Override
@@ -58,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
                                                    View view, int i, long l) {
                         AlertDialog.Builder mensagem = new AlertDialog.Builder(view.getContext());
                         mensagem.setTitle("Opções");
+                        mensagem.setMessage("Escolha a opção que deseja realizar");
                         mensagem.setPositiveButton("Remover", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 contatoDB.remover(dados.get(i).getId());
@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Salvo com sucesso", Toast.LENGTH_SHORT).show();
         }
         contatoDB.lista(dados);
+        listagem.invalidateViews();
         atualiza = null;
     }
 }
