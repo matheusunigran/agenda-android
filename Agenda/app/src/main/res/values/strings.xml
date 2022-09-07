@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Agenda</string>
     <string name="botaoSalvar">Salvar</string>
+    <string name="botaoCancelar">Cancelar Edição</string>
     <string name="textName">Entre com o nome</string>
     <string name="numberPhone">Entre com o número</string>
 </resources>
