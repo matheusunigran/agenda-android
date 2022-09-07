@@ -3,6 +3,7 @@ package br.unigran.agenda;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
@@ -62,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int id) {
                                 contatoDB.remover(dados.get(i).getId());
                                 contatoDB.lista(dados);
+                                String msg1 = "Removido com sucesso";
+                                Toast.makeText(getApplicationContext(), msg1, Toast.LENGTH_SHORT).show();
                             }
                         });
                         mensagem.setNegativeButton("Atualizar", new DialogInterface.OnClickListener() {
@@ -71,7 +74,6 @@ public class MainActivity extends AppCompatActivity {
                                 telefone.setText(dados.get(i).getTelefone().toString());
 
                                 contatoDB.atualizar(dados.get(i));
-
                                 contatoDB.lista(dados);
                             }
                         });
