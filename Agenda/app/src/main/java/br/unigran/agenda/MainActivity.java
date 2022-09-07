@@ -27,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     List<Contato>dados;
     DBHelper db;
     ContatoDB contatoDB;
+
+    Integer atualiza;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
         //banco de dados
         db = new DBHelper(this);
         //mapeia campos da tela
-        Integer atualiza;
+
+
         nome = findViewById(R.id.nameID);
         telefone = findViewById(R.id.phoneID);
         listagem = findViewById(R.id.listID);
@@ -86,13 +89,18 @@ public class MainActivity extends AppCompatActivity {
 
     public void salvar(View view){
         Contato contato =new Contato();
+        if(atualiza != null){
+           contato.setId(atualiza);
+        }
         contato.setNome(nome.getText().toString());
         contato.setTelefone(telefone.getText().toString());
-       // dados.add(contato);
-        contatoDB.inserir(contato);
-        contatoDB.lista(dados);
-        Toast.makeText(this, "Salvo com sucesso", Toast.LENGTH_SHORT).show();
-
-
-    }
+        // dados.add(contato);
+        if(atualiza != null)
+            contatoDB.atualizar(contato);
+        else {
+            contatoDB.inserir(contato);
+            contatoDB.lista(dados);
+            Toast.makeText(this, "Salvo com sucesso", Toast.LENGTH_SHORT).show();
+        }
+        atualiza = null;
 }
