@@ -16,14 +16,21 @@ public class ContatoDB {
         this.db=db;
     }
     public void inserir(Contato contato){
-        conexao = db.getWritableDatabase();//abri o bd
+        conexao = db.getWritableDatabase();//abre o bd
         ContentValues valores = new ContentValues();
         valores.put("nome",contato.getNome());
         valores.put("telefone",contato.getTelefone());
         conexao.insertOrThrow("Agenda",null,valores);
         conexao.close();
     }
-    public void atualizar(){}
+    public void atualizar(Contato contato){
+        conexao = db.getWritableDatabase();
+        ContentValues valores = new ContentValues();
+        valores.put("nome",contato.getNome());
+        valores.put("telefone",contato.getTelefone());
+        conexao.update("Agenda",valores, "id=?", new String[]{contato.getId().toString()});
+        conexao.close();
+    }
     public void remover(int id){
         conexao=db.getWritableDatabase();
         conexao.delete("Agenda","id=?",
