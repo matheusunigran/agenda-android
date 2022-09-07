@@ -21,14 +21,15 @@ import br.unigran.bancoDados.ContatoDB;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText  nome;
-    EditText  telefone;
-    ListView  listagem;
-    List<Contato>dados;
+    EditText nome;
+    EditText telefone;
+    ListView listagem;
+    List<Contato> dados;
     DBHelper db;
     ContatoDB contatoDB;
 
     Integer atualiza;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
         //banco de dados
         db = new DBHelper(this);
         //mapeia campos da tela
-
-
         nome = findViewById(R.id.nameID);
         telefone = findViewById(R.id.phoneID);
         listagem = findViewById(R.id.listID);
@@ -51,56 +50,57 @@ public class MainActivity extends AppCompatActivity {
         acoes();
     }
 
-    public boolean atualizando(){
-
-    }
-
     private void acoes() {
         listagem.setOnItemLongClickListener(
                 new AdapterView.OnItemLongClickListener() {
                     @Override
                     public boolean onItemLongClick(AdapterView<?> adapterView,
                                                    View view, int i, long l) {
-                        new AlertDialog.Builder(view.getContext())
-                                .setMessage("Deseja realmente remover")
-                                .setPositiveButton("Confirmar",
-                                        new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialogInterface,
-                                                                int k) {
-                                                contatoDB.remover(dados.get(i).getId());
-                                                contatoDB.lista(dados);
-                                            }
-                                        })
-                                .setNegativeButton("cancelar",null)
-                                .create().show();
+                        AlertDialog.Builder mensagem = new AlertDialog.Builder(view.getContext());
+                        mensagem.setTitle("Opções");
+                        mensagem.setPositiveButton("Remover", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                contatoDB.remover(dados.get(i).getId());
+                                contatoDB.lista(dados);
+                            }
+                        });
+                        mensagem.setNegativeButton("Atualizar", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                atualiza = dados.get(i).getId();
+                                nome.setText(dados.get(i).getNome());
+                                telefone.setText(dados.get(i).getTelefone().toString());
+
+                                contatoDB.atualizar(dados.get(i));
+
+                                contatoDB.lista(dados);
+                            }
+                        });
+                        mensagem.setNeutralButton("Cancelar", null);
+                        mensagem.show();
                         return false;
                     }
                 });
-        listagem.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                atualiza = dados.get(i).getId();
-                nome.setText(dados.get(i).getNome());
-                telefone.setText(dados.get(i).getTelefone().toString());
-            }
-        });
     }
 
-    public void salvar(View view){
-        Contato contato =new Contato();
-        if(atualiza != null){
-           contato.setId(atualiza);
+    public void salvar(View view) {
+        Contato contato = new Contato();
+        if (atualiza != null) {
+            contato.setId(atualiza);
+
+            contatoDB.lista(dados);
+            Toast.makeText(this, "Salvo com sucesso", Toast.LENGTH_SHORT).show();
         }
         contato.setNome(nome.getText().toString());
         contato.setTelefone(telefone.getText().toString());
-        // dados.add(contato);
-        if(atualiza != null)
+
+        if (atualiza != null)
             contatoDB.atualizar(contato);
         else {
             contatoDB.inserir(contato);
             contatoDB.lista(dados);
             Toast.makeText(this, "Salvo com sucesso", Toast.LENGTH_SHORT).show();
         }
+        contatoDB.lista(dados);
         atualiza = null;
+    }
 }
