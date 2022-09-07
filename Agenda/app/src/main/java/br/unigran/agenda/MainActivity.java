@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -41,9 +42,9 @@ public class MainActivity extends AppCompatActivity {
         contatoDB = new ContatoDB(db);
         contatoDB.lista(dados);
 
-        listagem.setOnLongClickListener(new View.OnLongClickListener() {
+        listagem.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onLongClick(View view) {
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 AlertDialog.Builder alert =
                         new AlertDialog.Builder(getApplicationContext());
                 alert.setMessage("Confirmar");
@@ -54,11 +55,11 @@ public class MainActivity extends AppCompatActivity {
 
                             }
                         });
-                alert.setMessage("a");
+                alert.create().show();
+
                 return false;
             }
-        }
-
+        });
 
     }
 
